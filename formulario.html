@@ -13,9 +13,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="estilo.css">
+    <link rel="stylesheet" href="css/estilo.css">
     <script src="script/script.js"></script>
-    </script>
 </head>
 <body class="bg-slate-100 text-slate-800 font-sans antialiased min-h-screen transition-colors duration-300" id="body-container">
 
@@ -73,35 +72,44 @@
                         <h1 class="text-xl font-bold text-slate-800 font-mono">Fale Comigo</h1>
                     </div>
 
-                    <form class="space-y-6">
+                    <form id="form-contato" class="space-y-6" novalidate>
+
+                        <!-- Feedback visível (sucesso/erro) -->
+                        <div id="form-feedback" class="hidden rounded-lg border px-4 py-3 text-sm font-medium" role="status" aria-live="polite"></div>
+
+                        <!-- Status do rascunho automático -->
+                        <div class="flex flex-wrap items-center gap-2 text-xs text-slate-500">
+                            <span id="rascunho-status" aria-live="polite"></span>
+                            <button type="button" id="rascunho-descartar" class="hidden underline text-blue-600 hover:text-blue-800">Descartar rascunho</button>
+                        </div>
+
                         <fieldset class="border border-slate-200 rounded-lg p-4">
                             <legend class="text-sm font-bold text-slate-700 font-mono px-2">Dados Pessoais</legend>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
-
-                                <!-- FLEXBOX: cada campo é "flex flex-col" -> label em cima, input embaixo -->
                                 <div class="flex flex-col gap-1">
-                                    <label for="nome" class="text-sm font-medium text-slate-700">Nome:</label>
-                                    <input type="text" id="nome" name="nome" class="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <label for="nome" class="text-sm font-medium text-slate-700">Nome: *</label>
+                                    <input type="text" id="nome" name="nome" maxlength="80" autocomplete="name" aria-describedby="erro-nome" class="border border-slate-300 rounded-lg px-3 py-2 text-sm bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <p id="erro-nome" class="hidden text-xs text-red-600 font-medium" role="alert"></p>
                                 </div>
-
                                 <div class="flex flex-col gap-1">
-                                    <label for="Nascimento" class="text-sm font-medium text-slate-700">Data de Nascimento:</label>
-                                    <input type="date" id="Nascimento" name="nascimento" class="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <label for="nascimento" class="text-sm font-medium text-slate-700">Data de Nascimento: *</label>
+                                    <input type="date" id="nascimento" name="nascimento"  aria-describedby="erro-nascimento" class="border border-slate-300 rounded-lg px-3 py-2 text-sm bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <p id="erro-nascimento" class="hidden text-xs text-red-600 font-medium" role="alert"></p>
                                 </div>
-
                                 <div class="flex flex-col gap-1">
-                                    <label for="email" class="text-sm font-medium text-slate-700">Email:</label>
-                                    <input type="email" id="email" name="email" class="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <label for="email" class="text-sm font-medium text-slate-700">Email: *</label>
+                                    <input type="email" id="email" name="email" autocomplete="email" aria-describedby="erro-email" class="border border-slate-300 rounded-lg px-3 py-2 text-sm bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <p id="erro-email" class="hidden text-xs text-red-600 font-medium" role="alert"></p>
                                 </div>
-
                                 <div class="flex flex-col gap-1">
-                                    <label for="assunto" class="text-sm font-medium text-slate-700">Assunto:</label>
-                                    <input type="text" id="assunto" name="assunto" class="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <label for="assunto" class="text-sm font-medium text-slate-700">Assunto: *</label>
+                                    <input type="text" id="assunto" name="assunto" maxlength="80" aria-describedby="erro-assunto" class="border border-slate-300 rounded-lg px-3 py-2 text-sm bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <p id="erro-assunto" class="hidden text-xs text-red-600 font-medium" role="alert"></p>
                                 </div>
-
                                 <div class="flex flex-col gap-1 md:col-span-2">
-                                    <label for="contato" class="text-sm font-medium text-slate-700">Contato:</label>
-                                    <input type="text" id="contato" name="contato" class="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <label for="contato" class="text-sm font-medium text-slate-700">Contato (telefone, opcional):</label>
+                                    <input type="tel" id="contato" name="contato" placeholder="(11) 99999-9999" autocomplete="tel" aria-describedby="erro-contato" class="border border-slate-300 rounded-lg px-3 py-2 text-sm bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <p id="erro-contato" class="hidden text-xs text-red-600 font-medium" role="alert"></p>
                                 </div>
                             </div>
                         </fieldset>
@@ -109,24 +117,47 @@
                         <fieldset class="border border-slate-200 rounded-lg p-4">
                             <legend class="text-sm font-bold text-slate-700 font-mono px-2">Mensagem</legend>
                             <div class="flex flex-col gap-1 mt-2">
-                                <label for="mensagem" class="text-sm font-medium text-slate-700">Mensagem:</label>
-                                <input type="text" id="mensagem" name="mensagem" class="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <label for="mensagem" class="text-sm font-medium text-slate-700">Mensagem: *</label>
+                                <textarea id="mensagem" name="mensagem" rows="4" maxlength="500" aria-describedby="erro-mensagem" class="border border-slate-300 rounded-lg px-3 py-2 text-sm bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                                <div class="flex justify-between gap-2">
+                                    <p id="erro-mensagem" class="hidden text-xs text-red-600 font-medium" role="alert"></p>
+                                    <p id="contador-mensagem" class="text-xs text-slate-500 ml-auto">0/500</p>
+                                </div>
                             </div>
                         </fieldset>
 
                         <fieldset class="border border-slate-200 rounded-lg p-4">
                             <legend class="text-sm font-bold text-slate-700 font-mono px-2">Música Favorita</legend>
-                            <div class="flex flex-col gap-1 mt-2">
-                                <label for="musica" class="text-sm font-medium text-slate-700">Música Favorita:</label>
-                                <input type="text" id="musica" name="musica" class="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            </div>
+                                <div class="flex flex-col gap-1">
+                                    <label for="musica" class="text-sm font-medium text-slate-700">Música Favorita (opcional):</label>
+                                    <input type="text" id="musica" name="musica" maxlength="80" aria-describedby="erro-musica" class="border border-slate-300 rounded-lg px-3 py-2 text-sm bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <p id="erro-musica" class="hidden text-xs text-red-600 font-medium" role="alert"></p>
+                                </div>
                         </fieldset>
 
                         <fieldset class="border border-slate-200 rounded-lg p-4">
-                               <input type="submit" value="Enviar" class="w-full sm:w-auto cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg px-6 py-2 text-sm transition">
+                            <input type="submit" value="Enviar" class="w-full sm:w-auto cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg px-6 py-2 text-sm transition">
+                            <span class="text-xs text-slate-500 ml-2">* campos obrigatórios</span>
                         </fieldset>
                     </form>
 
+                </section>
+
+                <!-- Histórico de mensagens enviadas (localStorage) -->
+                <section class="wf-section relative border-2 border-slate-400 border-dashed rounded-xl p-6 bg-white shadow-sm transition-all" id="wf-historico">
+                    <div class="flex items-center gap-2 border-b-2 border-slate-200 pb-2 mb-3">
+                        <i data-lucide="history" class="w-5 h-5 text-slate-500"></i>
+                        <h2 class="text-lg font-bold text-slate-800 font-mono">Mensagens Enviadas</h2>
+                        <span id="historico-contador" class="ml-auto text-xs text-slate-500"></span>
+                    </div>
+                    <p class="text-xs text-slate-500 mb-3">Histórico salvo apenas neste navegador (<code>localStorage</code>). Nenhuma mensagem é enviada a um servidor.</p>
+
+                    <ul id="historico-lista" class="space-y-3"></ul>
+                    <p id="historico-vazio" class="hidden text-sm text-slate-500 text-center py-4 border border-dashed border-slate-300 rounded-lg">Nenhuma mensagem enviada ainda.</p>
+
+                    <div class="mt-4 flex justify-end">
+                        <button type="button" id="historico-limpar" class="hidden px-3 py-1.5 rounded-md text-xs font-semibold border border-slate-300 bg-white text-slate-600 hover:bg-red-50 hover:text-red-600 hover:border-red-300 transition">Apagar tudo</button>
+                    </div>
                 </section>
 
             </div>

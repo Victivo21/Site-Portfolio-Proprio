@@ -220,6 +220,80 @@
                         </div>
 
                     </div>
+
+                    <!-- FEATURE: Quer saber mais sobre mim? (resposta salva em localStorage) -->
+                    <section class="wf-section relative group border-2 border-slate-400 border-dashed rounded-xl p-6 bg-white shadow-sm transition-all" id="wf-interesse">
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-2 border-b-2 border-slate-200 pb-2">
+                                <i data-lucide="help-circle" class="w-5 h-5 text-slate-500"></i>
+                                <h2 class="text-xl font-bold text-slate-800 font-mono">Quer saber mais sobre mim?</h2>
+                            </div>
+
+                            <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg space-y-4 text-slate-800">
+
+                                <div id="interesse-feedback" class="hidden rounded-lg border px-4 py-3 text-sm font-medium" role="status" aria-live="polite"></div>
+
+                                <!-- Formulário -->
+                                <form id="form-interesse" class="space-y-4" novalidate>
+                                    <fieldset>
+                                        <legend class="text-sm font-semibold text-slate-700 mb-2">Você tem interesse em saber algo a mais sobre mim? *</legend>
+                                        <div class="flex flex-wrap gap-2">
+                                            <label class="flex items-center gap-2 border border-slate-300 bg-white rounded-lg px-3 py-2 text-sm cursor-pointer hover:bg-slate-100 transition">
+                                                <input type="radio" name="resposta" value="sim" class="accent-blue-600"> Sim, quero!
+                                            </label>
+                                            <label class="flex items-center gap-2 border border-slate-300 bg-white rounded-lg px-3 py-2 text-sm cursor-pointer hover:bg-slate-100 transition">
+                                                <input type="radio" name="resposta" value="talvez" class="accent-blue-600"> Talvez depois
+                                            </label>
+                                            <label class="flex items-center gap-2 border border-slate-300 bg-white rounded-lg px-3 py-2 text-sm cursor-pointer hover:bg-slate-100 transition">
+                                                <input type="radio" name="resposta" value="nao" class="accent-blue-600"> Não, obrigado
+                                            </label>
+                                        </div>
+                                        <p id="erro-resposta" class="hidden text-xs text-red-600 font-medium mt-1" role="alert"></p>
+                                    </fieldset>
+
+                                    <!-- Aparece só quando a resposta é "Sim" -->
+                                    <fieldset id="interesse-topicos" class="hidden">
+                                        <legend class="text-sm font-semibold text-slate-700 mb-2">Sobre o que você gostaria de saber? *</legend>
+                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                            <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="topicos" value="formacao" class="accent-blue-600"> Formação</label>
+                                            <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="topicos" value="experiencia" class="accent-blue-600"> Experiência profissional</label>
+                                            <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="topicos" value="objetivos" class="accent-blue-600"> Objetivos de carreira</label>
+                                            <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="topicos" value="tecnologias" class="accent-blue-600"> Tecnologias e interesses</label>
+                                            <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="topicos" value="pessoal" class="accent-blue-600"> Um pouco do lado pessoal</label>
+                                            <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="topicos" value="contato" class="accent-blue-600"> Como falar comigo</label>
+                                        </div>
+                                        <p id="erro-topicos" class="hidden text-xs text-red-600 font-medium mt-1" role="alert"></p>
+
+                                        <div class="flex flex-col gap-1 mt-3">
+                                            <label for="interesse-comentario" class="text-sm font-medium text-slate-700">Alguma pergunta ou comentário? (opcional)</label>
+                                            <textarea id="interesse-comentario" rows="2" maxlength="200" class="border border-slate-300 rounded-lg px-3 py-2 text-sm bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                                            <p id="interesse-contador" class="text-xs text-slate-500 text-right">0/200</p>
+                                        </div>
+                                    </fieldset>
+
+                                    <div class="flex flex-wrap gap-2">
+                                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg px-5 py-2 text-sm transition">Salvar resposta</button>
+                                        <button type="button" id="interesse-cancelar" class="hidden px-4 py-2 border border-slate-300 bg-white text-slate-600 hover:bg-slate-100 rounded-lg text-sm transition">Cancelar</button>
+                                    </div>
+                                </form>
+
+                                <!-- Resultado (mostrado quando já existe resposta salva) -->
+                                <div id="interesse-resultado" class="hidden space-y-3">
+                                    <div>
+                                        <p id="resultado-titulo" class="font-semibold text-slate-800"></p>
+                                        <p id="resultado-data" class="text-xs text-slate-500"></p>
+                                    </div>
+                                    <div id="resultado-cards" class="space-y-2"></div>
+                                    <p id="resultado-comentario" class="hidden text-sm text-slate-600 italic border-l-2 border-slate-300 pl-3"></p>
+                                    <div class="flex flex-wrap gap-2 pt-1">
+                                        <button type="button" id="interesse-alterar" class="px-4 py-2 border border-slate-300 bg-white text-slate-700 hover:bg-slate-100 rounded-lg text-sm font-medium transition">Alterar resposta</button>
+                                        <button type="button" id="interesse-apagar" class="px-4 py-2 border border-slate-300 bg-white text-slate-600 hover:bg-red-50 hover:text-red-600 hover:border-red-300 rounded-lg text-sm font-medium transition">Apagar resposta</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
                 </div>
 
             </div>
