@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vinicius Conceição — Portfólio Pessoal</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles for Blueprint and Wireframe grids -->
+    <style>
+        .wireframe-grid {
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 16px 16px;
+        }
+        .blueprint-grid {
+            background-image: linear-gradient(to right, rgba(56, 189, 248, 0.1) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(56, 189, 248, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* Cartões interativos de linguagens de programação */
+        .lang-badge {
+            position: relative;
+            overflow: hidden;
+            transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease, border-color .18s ease, color .18s ease;
+        }
+        .lang-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px -8px rgba(0,0,0,.25);
+        }
+        .lang-badge .lang-desc {
+            display: block;
+            max-height: 0;
+            opacity: 0;
+            font-size: 10.5px;
+            line-height: 1.3;
+            transition: max-height .22s ease, opacity .18s ease, margin .18s ease;
+        }
+        .lang-badge:hover .lang-desc {
+            max-height: 40px;
+            opacity: 1;
+            margin-top: 2px;
+        }
+        .lang-badge:hover .lang-dot {
+            transform: scale(1.3);
+        }
+        .lang-dot { transition: transform .18s ease; }
+
+        .lang-java:hover   { background-color:#eff6ff; border-color:#93c5fd; color:#1d4ed8; }
+        .lang-python:hover { background-color:#ecfdf5; border-color:#6ee7b7; color:#047857; }
+        .lang-js:hover     { background-color:#fffbeb; border-color:#fcd34d; color:#b45309; }
+        .lang-sql:hover    { background-color:#faf5ff; border-color:#d8b4fe; color:#7e22ce; }
+        .lang-html:hover   { background-color:#fff7ed; border-color:#fdba74; color:#c2410c; }
+        .lang-css:hover    { background-color:#f0f9ff; border-color:#7dd3fc; color:#0369a1; }
+    </style>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-100 text-slate-800 font-sans antialiased min-h-full transition-colors duration-300 flex flex-col" id="body-container">
+
+    <!-- Fixed Navigation Bar -->
+    <header class="sticky top-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-3">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                
+                <!-- Logo / Title -->
+                <div class="flex items-center gap-3">
+                    <div class="text-slate-600 dark:text-slate-300 flex items-center justify-center">
+                        <i data-lucide="layout" class="w-4 h-4"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-lg text-slate-900 dark:text-white leading-tight">Vinicius.Conceição</h1>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Portfólio Pessoal — Vinicius Conceição Alves Maria</p>
+                    </div>
+                </div>
+
+                <!-- View Switcher Controls -->
+                <div class="flex flex-wrap items-center gap-2">
+                    
+                    <!-- Theme/Style Selector -->
+                    <div class="bg-slate-100 dark:bg-slate-800 p-1 rounded-lg flex items-center border border-slate-200 dark:border-slate-700">
+                        <button id="btn-style-wireframe" onclick="setStyle('wireframe')" class="px-3 py-1.5 rounded-md text-xs font-semibold flex items-center gap-1.5 transition-all bg-white dark:bg-slate-700 text-slate-800 dark:text-white shadow-sm">
+                            <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
+                            Sketch Wireframe
+                        </button>
+                        <button id="btn-style-blueprint" onclick="setStyle('blueprint')" class="px-3 py-1.5 rounded-md text-xs font-semibold flex items-center gap-1.5 transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
+                            <i data-lucide="compass" class="w-3.5 h-3.5"></i>
+                            Blueprint Azul
+                        </button>
+                    </div>
+
+                    <!-- Info Drawer Toggle -->
+                    <button onclick="toggleInfoModal()" class="p-2 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition" title="Detalhes do projeto">
+                        <i data-lucide="info" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Fixed Navigation Menu -->
+            <nav class="mt-3 pt-3 border-t border-slate-200 dark:border-slate-800">
+                <ul class="flex flex-wrap items-center gap-1.5 text-sm">
+                    <!-- Active Sobre Mim Link -->
+                    <li>
+                        <a href="index.html" class="nav-link px-3.5 py-1.5 rounded-lg font-medium bg-blue-600 text-white shadow-sm flex items-center gap-2 transition hover:bg-blue-700">
+                            <i data-lucide="user" class="w-4 h-4"></i> Sobre Mim
+                        </a>
+                    </li>
+                    <li>
+                        <a href="curriculo.html" class="nav-link px-3.5 py-1.5 rounded-lg font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition flex items-center gap-2">
+                            <i data-lucide="file-text" class="w-4 h-4"></i> Currículo
+                        </a>
+                    </li>
+                    <li>
+                        <a href="formulario.html" class="nav-link px-3.5 py-1.5 rounded-lg font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition flex items-center gap-2">
+                            <i data-lucide="mail" class="w-4 h-4"></i> Contato
+                        </a>
+                    </li>
+                    <li>
+                        <a href="multimidia.html" class="nav-link px-3.5 py-1.5 rounded-lg font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition flex items-center gap-2">
+                            <i data-lucide="sparkles" class="w-4 h-4"></i> Multimídia
+                        </a>
+                    </li>
+                    <li>
+                        <a href="grafico.html" class="nav-link px-3.5 py-1.5 rounded-lg font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition flex items-center gap-2">
+                            <i data-lucide="bar-chart-2" class="w-4 h-4"></i> Gráfico
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto p-4 md:p-8 flex-1 w-full">
+
+        <!-- VIEW 1: Visual Wireframe Mode -->
+        <div id="view-visual" class="space-y-6">
+
+            <!-- Wireframe Canvas Paper -->
+            <div id="wireframe-canvas" class="wireframe-grid bg-slate-50 border-2 border-dashed border-slate-300 rounded-2xl p-4 md:p-10 transition-all duration-300 min-h-[600px] relative">
+                
+                <!-- Main Layout Wireframe Box -->
+                <div class="max-w-5xl mx-auto space-y-8">
+                    
+                    <!-- HEADER TITLE BLOCK -->
+                    <section class="wf-section relative group border-2 border-slate-400 border-dashed rounded-xl p-6 bg-white shadow-sm transition-all" id="wf-header">
+                        <div class="flex items-center justify-between">
+                            <div class="w-full">
+                                <div class="text-xs font-mono text-slate-400 mb-1 flex items-center gap-1">
+                                    <i data-lucide="heading-1" class="w-3.5 h-3.5"></i>
+                                </div>
+                                <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-slate-800 font-mono border-b-2 border-slate-200 pb-2"> Vinicius Conceição Alves Maria</h1>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Main Grid: Content & Sidebar Image -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                        
+                        <!-- Left 2-Columns: Main Info -->
+                        <div class="lg:col-span-2 space-y-8">
+
+                            <!-- SOBRE MIM SECTION -->
+                            <section class="wf-section relative group border-2 border-slate-400 border-dashed rounded-xl p-6 bg-white shadow-sm transition-all" id="wf-sobre">
+                                <div class="space-y-4">
+                                    <div class="flex items-center gap-2 border-b-2 border-slate-200 pb-2">
+                                        <i data-lucide="user" class="w-5 h-5 text-slate-500"></i>
+                                        <h2 class="text-xl font-bold text-slate-800 font-mono">Sobre Mim</h2>
+                                    </div>
+
+                                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg space-y-3">
+                                        <p class="text-sm text-slate-600 leading-relaxed font-sans text-justify">
+                                            Sou uma pessoa apaixonada por tecnologia, música e pelo universo da ficção em suas mais diversas formas. Sempre tive curiosidade em entender como as coisas funcionam, principalmente quando envolvem computadores, programação, criatividade e inovação. Para mim, a tecnologia não é apenas uma ferramenta, mas uma forma de transformar ideias em algo concreto e capaz de impactar positivamente a vida das pessoas.
+                                        </p>
+                                        <p class="text-sm text-slate-600 leading-relaxed font-sans text-justify pt-3 border-t border-slate-200">
+                                            Atualmente, estou construindo minha trajetória na área de tecnologia e tenho como objetivo me tornar um desenvolvedor Full Stack, adquirindo conhecimentos tanto em desenvolvimento Front-End quanto Back-End. Quero continuar aprendendo, aprimorando minhas habilidades e desenvolvendo projetos que me permitam colocar meus conhecimentos em prática e, ao mesmo tempo, explorar minha criatividade.
+                                        </p>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!-- INTERESSES SECTION -->
+                            <section class="wf-section relative group border-2 border-slate-400 border-dashed rounded-xl p-6 bg-white shadow-sm transition-all" id="wf-interesses">
+                                <div class="space-y-4">
+                                    <div class="flex items-center gap-2 border-b-2 border-slate-200 pb-2">
+                                        <i data-lucide="sparkles" class="w-5 h-5 text-slate-500"></i>
+                                        <h2 class="text-xl font-bold text-slate-800 font-mono">Interesses</h2>
+                                    </div>
+
+                                    <!-- Interesses List Block -->
+                                    <div class="space-y-3">
+                                        <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-lg">
+                                            <span class="text-xs font-mono text-slate-400 block mb-2"> Área de Interesses</span>
+                                            <ul class="space-y-1.5 text-sm text-slate-700 pl-4 list-disc font-medium">
+                                                <li>Programação Back-End</li>
+                                                <li>Programação Front-End</li>
+                                                <li>Inteligência Artificial</li>
+                                                <li>Desenvolvimento de Sistemas e Aplicações</li>
+                                                <li>Desenvolvimento de Bancos e Sistemas de Dados</li>
+                                            </ul>
+                                        </div>
+
+                                        <!-- Sublista / Categoria Linguagens -->
+                                        <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-lg">
+                                            <span class="text-xs font-mono text-slate-400 block mb-2"> Linguagem de Programação</span>
+                                            <div class="font-medium text-sm text-slate-800 mb-3 flex items-center gap-1.5">
+                                                <i data-lucide="code-2" class="w-4 h-4 text-slate-500"></i>
+                                                Linguagens de Programação:
+                                            </div>
+                                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 pl-2">
+                                                <div class="lang-badge lang-java border border-slate-300 rounded-md px-3 py-1.5 text-xs font-mono bg-white flex flex-col justify-center gap-0.5 text-slate-700 shadow-sm">
+                                                    <span class="flex items-center gap-2"><span class="lang-dot w-2 h-2 rounded-full bg-blue-500"></span> Java</span>
+                                                    <span class="lang-desc">Orientada a objetos, roda na JVM</span>
+                                                </div>
+                                                <div class="lang-badge lang-python border border-slate-300 rounded-md px-3 py-1.5 text-xs font-mono bg-white flex flex-col justify-center gap-0.5 text-slate-700 shadow-sm">
+                                                    <span class="flex items-center gap-2"><span class="lang-dot w-2 h-2 rounded-full bg-emerald-500"></span> Python</span>
+                                                    <span class="lang-desc">Sintaxe simples, ótima para dados e IA</span>
+                                                </div>
+                                                <div class="lang-badge lang-js border border-slate-300 rounded-md px-3 py-1.5 text-xs font-mono bg-white flex flex-col justify-center gap-0.5 text-slate-700 shadow-sm">
+                                                    <span class="flex items-center gap-2"><span class="lang-dot w-2 h-2 rounded-full bg-amber-500"></span> JavaScript</span>
+                                                    <span class="lang-desc">A linguagem da web</span>
+                                                </div>
+                                                <div class="lang-badge lang-sql border border-slate-300 rounded-md px-3 py-1.5 text-xs font-mono bg-white flex flex-col justify-center gap-0.5 text-slate-700 shadow-sm">
+                                                    <span class="flex items-center gap-2"><span class="lang-dot w-2 h-2 rounded-full bg-purple-500"></span> SQL</span>
+                                                    <span class="lang-desc">Consultas em bancos de dados</span>
+                                                </div>
+                                                <div class="lang-badge lang-html border border-slate-300 rounded-md px-3 py-1.5 text-xs font-mono bg-white flex flex-col justify-center gap-0.5 text-slate-700 shadow-sm">
+                                                    <span class="flex items-center gap-2"><span class="lang-dot w-2 h-2 rounded-full bg-orange-500"></span> HTML</span>
+                                                    <span class="lang-desc">Estrutura das páginas web</span>
+                                                </div>
+                                                <div class="lang-badge lang-css border border-slate-300 rounded-md px-3 py-1.5 text-xs font-mono bg-white flex flex-col justify-center gap-0.5 text-slate-700 shadow-sm">
+                                                    <span class="flex items-center gap-2"><span class="lang-dot w-2 h-2 rounded-full bg-sky-500"></span> CSS</span>
+                                                    <span class="lang-desc">Estilo e layout visual</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                        </div>
+
+                        <!-- Right Column: Fixed Profile Image Block -->
+                        <div class="lg:col-span-1 space-y-4">
+                            <section class="wf-section relative group border-2 border-slate-400 border-dashed rounded-xl p-6 bg-white shadow-sm transition-all flex flex-col items-center" id="wf-foto">
+                                <div class="text-center w-full">
+                                    <span class="text-xs font-mono text-slate-400 block mb-3"> Foto de Perfil</span>
+
+                                    <!-- Fixed Image Container -->
+                                    <div class="w-[200px] h-[200px] mx-auto border-2 border-slate-300 rounded-xl overflow-hidden shadow-md bg-slate-100 flex items-center justify-center relative group">
+                                        <img src="foto.png" 
+                                             alt="Vinicius Conceição" 
+                                             width="300" 
+                                             height="300" 
+                                             class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                                             onerror="this.onerror=null; this.src='https://placehold.co/200x200/3b82f6/ffffff?text=Vinicius+C.';">
+                                    </div>
+
+                                   
+                                </div>
+                            </section>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Modal Info -->
+    <div id="modal-info" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl border border-slate-200 dark:border-slate-700">
+            <div class="flex items-center justify-between border-b pb-3 dark:border-slate-700">
+                <h3 class="font-bold text-lg text-slate-800 dark:text-white">Sobre este Wireframe</h3>
+                <button onclick="toggleInfoModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-white">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Este wireframe mapeia a estrutura da página pessoal de <strong>Vinicius Conceição Alves Maria</strong>, trazendo navegação fixa no topo e uma foto de perfil pré-configurada em 200x200px.
+            </p>
+            <div class="bg-slate-50 dark:bg-slate-900 p-3 rounded-lg text-xs font-mono space-y-1 text-slate-500">
+                <p>• <strong>Menu:</strong> Fixo no topo durante a rolagem (`sticky top-0`)</p>
+                <p>• <strong>Resolução Imagem:</strong> 200px × 200px (`foto.png`)</p>
+                <p>• <strong>Linguagens:</strong> Java, Python, JS, SQL, HTML, CSS</p>
+            </div>
+            <button onclick="toggleInfoModal()" class="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg text-sm transition">
+                Fechar
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // State Management
+        let currentStyle = 'wireframe'; // 'wireframe' | 'blueprint'
+
+        function setStyle(style) {
+            currentStyle = style;
+            const canvas = document.getElementById('wireframe-canvas');
+            const btnWireframe = document.getElementById('btn-style-wireframe');
+            const btnBlueprint = document.getElementById('btn-style-blueprint');
+
+            if (style === 'blueprint') {
+                canvas.classList.remove('bg-slate-50', 'wireframe-grid', 'border-slate-300');
+                canvas.classList.add('bg-slate-900', 'blueprint-grid', 'border-sky-800');
+                
+                document.querySelectorAll('#wireframe-canvas section').forEach(sec => {
+                    sec.classList.remove('bg-white', 'border-slate-400');
+                    sec.classList.add('bg-slate-800', 'border-sky-500/50', 'text-slate-100');
+                });
+
+                document.querySelectorAll('#wireframe-canvas h1, #wireframe-canvas h2').forEach(h => {
+                    h.classList.remove('text-slate-800');
+                    h.classList.add('text-sky-300');
+                });
+
+                btnBlueprint.className = 'px-3 py-1.5 rounded-md text-xs font-semibold flex items-center gap-1.5 transition-all bg-white dark:bg-slate-700 text-slate-800 dark:text-white shadow-sm';
+                btnWireframe.className = 'px-3 py-1.5 rounded-md text-xs font-semibold flex items-center gap-1.5 transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white';
+            } else {
+                canvas.classList.remove('bg-slate-900', 'blueprint-grid', 'border-sky-800');
+                canvas.classList.add('bg-slate-50', 'wireframe-grid', 'border-slate-300');
+
+                document.querySelectorAll('#wireframe-canvas section').forEach(sec => {
+                    sec.classList.remove('bg-slate-800', 'border-sky-500/50', 'text-slate-100');
+                    sec.classList.add('bg-white', 'border-slate-400');
+                });
+
+                document.querySelectorAll('#wireframe-canvas h1, #wireframe-canvas h2').forEach(h => {
+                    h.classList.remove('text-sky-300');
+                    h.classList.add('text-slate-800');
+                });
+
+                btnWireframe.className = 'px-3 py-1.5 rounded-md text-xs font-semibold flex items-center gap-1.5 transition-all bg-white dark:bg-slate-700 text-slate-800 dark:text-white shadow-sm';
+                btnBlueprint.className = 'px-3 py-1.5 rounded-md text-xs font-semibold flex items-center gap-1.5 transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white';
+            }
+        }
+
+        function toggleInfoModal() {
+            const modal = document.getElementById('modal-info');
+            modal.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>

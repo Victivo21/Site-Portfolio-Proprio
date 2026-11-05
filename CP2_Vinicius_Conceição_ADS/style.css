@@ -1,0 +1,168 @@
+/* ==========================================
+   1. VARIÁVEIS GLOBAIS E SELEÇÃO DE TEMAS
+   ========================================== */
+:root {
+    --accent: #3b82f6;
+    --accent-dark: #2563eb;
+    --grid-color-light: rgba(148, 163, 184, 0.15);
+    --grid-color-dark: rgba(56, 189, 248, 0.1);
+}
+
+
+.wireframe-grid {
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 16px 16px;
+        }
+        .blueprint-grid {
+            background-image: linear-gradient(to right, rgba(56, 189, 248, 0.1) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(56, 189, 248, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* Cartões interativos de linguagens de programação */
+        .lang-badge {
+            position: relative;
+            overflow: hidden;
+            transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease, border-color .18s ease, color .18s ease;
+        }
+        .lang-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px -8px rgba(0,0,0,.25);
+        }
+        .lang-badge .lang-desc {
+            display: block;
+            max-height: 0;
+            opacity: 0;
+            font-size: 10.5px;
+            line-height: 1.3;
+            transition: max-height .22s ease, opacity .18s ease, margin .18s ease;
+        }
+        .lang-badge:hover .lang-desc {
+            max-height: 40px;
+            opacity: 1;
+            margin-top: 2px;
+        }
+        .lang-badge:hover .lang-dot {
+            transform: scale(1.3);
+        }
+        .lang-dot { transition: transform .18s ease; }
+
+        .lang-java:hover   { background-color:#eff6ff; border-color:#93c5fd; color:#1d4ed8; }
+        .lang-python:hover { background-color:#ecfdf5; border-color:#6ee7b7; color:#047857; }
+        .lang-js:hover     { background-color:#fffbeb; border-color:#fcd34d; color:#b45309; }
+        .lang-sql:hover    { background-color:#faf5ff; border-color:#d8b4fe; color:#7e22ce; }
+        .lang-html:hover   { background-color:#fff7ed; border-color:#fdba74; color:#c2410c; }
+        .lang-css:hover    { background-color:#f0f9ff; border-color:#7dd3fc; color:#0369a1; }
+        
+/* ==========================================
+   2. ESTILOS DE MALHA (GRID PATTERNS)
+   ========================================== */
+/* Fundo em papel quadriculado (Modo Wireframe/Sketch) */
+.wireframe-grid {
+    background-image: 
+        linear-gradient(to right, var(--grid-color-light) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid-color-light) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+/* Fundo Blueprint (Modo Blueprint Azul) */
+.blueprint-grid {
+    background-image: 
+        linear-gradient(to right, var(--grid-color-dark) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid-color-dark) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+/* ==========================================
+   3. ESTILIZAÇÃO DO PLACEHOLDER DA FOTO (EFEITO X)
+   ========================================== */
+/* Cria as linhas diagonais cruzadas tradicionais de wireframes */
+.img-x-placeholder {
+    position: relative;
+}
+
+.img-x-placeholder::before,
+.img-x-placeholder::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.img-x-placeholder::before {
+    background: linear-gradient(
+        to top right,
+        transparent calc(50% - 1px),
+        #cbd5e1 calc(50% - 1px),
+        #cbd5e1 calc(50% + 1px),
+        transparent calc(50% + 1px)
+    );
+}
+
+.img-x-placeholder::after {
+    background: linear-gradient(
+        to bottom right,
+        transparent calc(50% - 1px),
+        #cbd5e1 calc(50% - 1px),
+        #cbd5e1 calc(50% + 1px),
+        transparent calc(50% + 1px)
+    );
+}
+
+/* Oculta as linhas quando uma foto é inserida */
+.img-x-placeholder.has-image::before,
+.img-x-placeholder.has-image::after {
+    display: none;
+}
+
+/* ==========================================
+   4. COMPONENTES E DETALHES VISUAIS
+   ========================================== */
+/* Borda dinâmica baseada na cor accent */
+.wf-accent-border {
+    border-color: var(--accent) !important;
+}
+
+/* Tab/Botão Ativo com a cor dinâmica */
+.accent-tab-active {
+    background-color: var(--accent) !important;
+    color: #ffffff !important;
+}
+
+.accent-tab-active:hover {
+    background-color: var(--accent-dark) !important;
+}
+
+/* Animações e efeitos hover para as seções do wireframe */
+.wf-section {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.wf-section:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+    border-color: var(--accent);
+}
+
+/* Personalização da barra de rolagem (Scrollbar) */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
