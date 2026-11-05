@@ -127,6 +127,53 @@
                         </fieldset>
 
                         <fieldset class="border border-slate-200 rounded-lg p-4">
+                            <legend class="text-sm font-bold text-slate-700 font-mono px-2">Perguntas para mim (opcional)</legend>
+
+                            <div class="flex items-start justify-between gap-2 mt-1 mb-3">
+                                <p class="text-xs text-slate-500">Crie até 10 perguntas. Elas ficam salvas neste navegador e são <strong>enviadas junto com esta mensagem</strong> quando você clica em Enviar.</p>
+                                <span id="perguntas-contador" class="text-xs text-slate-500 whitespace-nowrap"></span>
+                            </div>
+
+                            <div id="perguntas-feedback" class="hidden rounded-lg border px-4 py-3 text-sm font-medium mb-3" role="status" aria-live="polite"></div>
+
+                            <!-- Não é um <form> (formulários não podem ficar aninhados): é um grupo controlado por JavaScript -->
+                            <div id="form-perguntas" class="space-y-3">
+                                <div class="flex flex-col gap-1">
+                                    <label for="pergunta-assunto" class="text-sm font-medium text-slate-700">Assunto da pergunta:</label>
+                                    <select id="pergunta-assunto" class="border border-slate-300 rounded-lg px-3 py-2 text-sm bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                        <option value="geral">Geral</option>
+                                        <option value="formacao">Formação</option>
+                                        <option value="experiencia">Experiência profissional</option>
+                                        <option value="objetivos">Objetivos de carreira</option>
+                                        <option value="tecnologias">Tecnologias e interesses</option>
+                                        <option value="pessoal">Lado pessoal</option>
+                                    </select>
+                                </div>
+                                <div class="flex flex-col gap-1">
+                                    <label for="pergunta-texto" class="text-sm font-medium text-slate-700">Sua pergunta:</label>
+                                    <textarea id="pergunta-texto" rows="2" maxlength="120" aria-describedby="erro-pergunta" placeholder="Ex.: Qual linguagem você pretende aprender primeiro?" class="border border-slate-300 rounded-lg px-3 py-2 text-sm bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                                    <div class="flex justify-between gap-2">
+                                        <p id="erro-pergunta" class="hidden text-xs text-red-600 font-medium" role="alert"></p>
+                                        <p id="pergunta-contador" class="text-xs text-slate-500 ml-auto">0/120</p>
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap gap-2">
+                                    <button type="button" id="pergunta-salvar" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg px-5 py-2 text-sm transition">Adicionar pergunta</button>
+                                    <button type="button" id="pergunta-cancelar" class="hidden px-4 py-2 border border-slate-300 bg-white text-slate-600 hover:bg-slate-100 rounded-lg text-sm transition">Cancelar edição</button>
+                                </div>
+                            </div>
+
+                            <div class="mt-3">
+                                <ul id="perguntas-lista" class="space-y-2"></ul>
+                                <p id="perguntas-vazio" class="hidden text-sm text-slate-500 text-center py-3 border border-dashed border-slate-300 rounded-lg">Nenhuma pergunta criada ainda.</p>
+                            </div>
+
+                            <div id="perguntas-acoes" class="hidden flex flex-wrap gap-2 mt-3">
+                                <button type="button" id="perguntas-limpar" class="px-4 py-2 border border-slate-300 bg-white text-slate-600 hover:bg-red-50 hover:text-red-600 hover:border-red-300 rounded-lg text-sm font-medium transition">Apagar todas</button>
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="border border-slate-200 rounded-lg p-4">
                             <legend class="text-sm font-bold text-slate-700 font-mono px-2">Música Favorita</legend>
                                 <div class="flex flex-col gap-1">
                                     <label for="musica" class="text-sm font-medium text-slate-700">Música Favorita (opcional):</label>
@@ -138,6 +185,7 @@
                         <fieldset class="border border-slate-200 rounded-lg p-4">
                             <input type="submit" value="Enviar" class="w-full sm:w-auto cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg px-6 py-2 text-sm transition">
                             <span class="text-xs text-slate-500 ml-2">* campos obrigatórios</span>
+                            <p id="perguntas-anexo" class="hidden text-xs text-slate-600 mt-2" aria-live="polite"></p>
                         </fieldset>
                     </form>
 
