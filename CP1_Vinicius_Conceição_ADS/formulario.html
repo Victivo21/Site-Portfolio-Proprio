@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato / Formulário - Vinicius Conceição</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="wireframe.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-100 text-slate-800 font-sans antialiased min-h-screen transition-colors duration-300" id="body-container">
+
+    <!-- Top Control Bar / Header -->
+    <header class="sticky top-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-200 dark:border-slate-800 px-4 py-3 shadow-sm">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            
+            <div class="flex items-center gap-3">
+                <div class="p-2 bg-blue-600 text-white rounded-lg shadow-sm">
+                    <i data-lucide="layout"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg text-slate-900 dark:text-white leading-tight">Vinicius.Conceição</h1>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Portifolio Pessoal — Vinicius Conceição Alves Maria</p>
+                </div>
+            </div>
+
+            <!-- View Switcher Controls -->
+            <div class="flex flex-wrap items-center gap-2">
+                <div class="bg-slate-100 dark:bg-slate-800 p-1 rounded-lg flex items-center border border-slate-200 dark:border-slate-700">
+                    <button id="btn-style-wireframe" onclick="setStyle('wireframe')" class="px-3 py-1.5 rounded-md text-xs font-semibold flex items-center gap-1.5 transition-all bg-white dark:bg-slate-700 text-slate-800 dark:text-white shadow-sm">
+                        <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
+                        Sketch Wireframe
+                    </button>
+                    <button id="btn-style-blueprint" onclick="setStyle('blueprint')" class="px-3 py-1.5 rounded-md text-xs font-semibold flex items-center gap-1.5 transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
+                        <i data-lucide="compass" class="w-3.5 h-3.5"></i>
+                        Blueprint Azul
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barra de Navegação -->
+        <nav class="max-w-7xl mx-auto mt-3 pt-3 border-t border-slate-200 dark:border-slate-800">
+            <ul class="flex flex-wrap items-center gap-1 text-sm">
+                <li><a href="curriculo.html" class="nav-link px-3 py-1.5 rounded-lg font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition flex items-center gap-1.5"><i data-lucide="home" class="w-3.5 h-3.5"></i> Curriculo</a></li>
+                <li><a href="formulario.html" class="nav-link px-3 py-1.5 rounded-lg font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition flex items-center gap-1.5"><i data-lucide="user" class="w-3.5 h-3.5"></i> Contato</a></li>
+                <li><a href="multimidia.html" class="nav-link px-3 py-1.5 rounded-lg font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition flex items-center gap-1.5"><i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Multimidia</a></li>
+                <li><a href="grafico.html" class="nav-link px-3 py-1.5 rounded-lg font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition flex items-center gap-1.5"><i data-lucide="image" class="w-3.5 h-3.5"></i> Gráfico</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto p-4 md:p-8">
+        <div id="wireframe-canvas" class="wireframe-grid bg-slate-50 border-2 border-dashed border-slate-300 rounded-2xl p-4 md:p-10 transition-all duration-300 min-h-[600px] relative">
+            <div class="max-w-4xl mx-auto space-y-6">
+                
+                <!-- Bloco do Wireframe contendo o seu Formulário Exato -->
+                <section class="wf-section relative group border-2 border-slate-400 border-dashed rounded-xl p-6 bg-white shadow-sm transition-all" id="wf-formulario">
+                    
+                    <form>
+                        <fieldset>
+                            <legend>Dados Pessoais</legend>
+
+                            <label for="nome">Nome:</label>
+                            <input type="text" id="nome" name="nome">
+                            <br><br>
+
+                            <label for="data de nascimento">Data de Nascimento:</label>
+                            <input type="date" id="Nascimento">
+                            <br><br>
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email">
+                            <br><br>
+
+                            <label for="assunto">Assunto:</label>
+                            <input type="text" id="assunto" name="assunto">
+                            <br><br>
+
+                            <label for="contato">Contato:</label>
+                            <input type="text" id="contato" name="contato">
+                            <br><br>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Mensagem</legend>
+                            <label for="mensagem">Mensagem:</label>
+                            <input type="text" id="mensagem" name="mensagem">
+                            <br><br>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Musica Favorita</legend>
+                            <label for="musica">Musica Favorita:</label>
+                            <input type="text" id="musica" name="musica">
+                            <br><br>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Enviar</legend>
+                            <input type="submit" value="Enviar">
+                        </fieldset>
+                    </form>
+
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Script de Alternância de Estilos (Sketch / Blueprint) -->
+    <script>
+        lucide.createIcons();
+
+        let currentStyle = 'wireframe';
+
+        function setStyle(style) {
+            currentStyle = style;
+            const canvas = document.getElementById('wireframe-canvas');
+            const btnWireframe = document.getElementById('btn-style-wireframe');
+            const btnBlueprint = document.getElementById('btn-style-blueprint');
+
+            if (style === 'blueprint') {
+                canvas.classList.remove('bg-slate-50', 'wireframe-grid', 'border-slate-300');
+                canvas.classList.add('bg-slate-900', 'blueprint-grid', 'border-sky-800');
+                
+                document.querySelectorAll('#wireframe-canvas section').forEach(sec => {
+                    sec.classList.remove('bg-white', 'border-slate-400');
+                    sec.classList.add('bg-slate-800', 'border-sky-500/50', 'text-slate-100');
+                });
+
+                btnBlueprint.className = 'px-3 py-1.5 rounded-md text-xs font-semibold flex items-center gap-1.5 transition-all bg-sky-500 text-white shadow-sm';
+                btnWireframe.className = 'px-3 py-1.5 rounded-md text-xs font-semibold flex items-center gap-1.5 transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white';
+            } else {
+                canvas.classList.remove('bg-slate-900', 'blueprint-grid', 'border-sky-800');
+                canvas.classList.add('bg-slate-50', 'wireframe-grid', 'border-slate-300');
+
+                document.querySelectorAll('#wireframe-canvas section').forEach(sec => {
+                    sec.classList.remove('bg-slate-800', 'border-sky-500/50', 'text-slate-100');
+                    sec.classList.add('bg-white', 'border-slate-400');
+                });
+
+                btnWireframe.className = 'px-3 py-1.5 rounded-md text-xs font-semibold flex items-center gap-1.5 transition-all bg-white dark:bg-slate-700 text-slate-800 dark:text-white shadow-sm';
+                btnBlueprint.className = 'px-3 py-1.5 rounded-md text-xs font-semibold flex items-center gap-1.5 transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white';
+            }
+        }
+    </script>
+</body>
+</html>
